@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env bash
+
+. "$TM_SUPPORT_PATH/lib/webpreview.sh"
+html_header "Git GUI"
+
+echo '&lt;pre id="debug"&gt;&lt;script type="text/javascript" charset="utf-8"&gt; try{'
+echo '/*YOUR STUFF*/'
+export TM_BUNDLE_SUPPORT0=$TM_BUNDLE_SUPPORT
+
+cat "$TM_BUNDLE_SUPPORT/git.gui.js"
+
+echo '/*YOUR STUFF*/'
+echo '}catch(e){ document.write("&lt;strong style=\"color:red\"&gt;"+e+"&lt;/strong&gt;")}; &lt;/script&gt;&lt;/pre&gt;'
+
+html_footer
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Git GUI Current Project</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>796B9570-D42F-488F-B532-32334B84A0F1</string>
+</dict>
+</plist>

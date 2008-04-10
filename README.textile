@@ -1,0 +1,3 @@
+h1. GuiMate for TextMate
+
+It's basically just a way to easily bind shell scripts to buttons and see the results right in that same window. It's very useful (to me) for scripts that you run hundreds of times per day or need constant access to, no matter what document or project is open or closed.
