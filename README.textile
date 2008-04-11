@@ -1,3 +1,18 @@
 h1. GuiMate for TextMate
 
 It's basically just a way to easily bind shell scripts to buttons and see the results right in that same window. It's very useful (to me) for scripts that you run hundreds of times per day or need constant access to, no matter what document or project is open or closed.
+
+h2. INSTALL
+
+h3. Get...
+
+<pre>
+git clone git://github.com/subtleGradient/persistent-asynchronous-script-runner.git GuiMate.tmbundle
+open GuiMate.tmbundle
+</pre>
+
+h3. or Download...
+
+"Download persistent-asynchronous-script-runner as a tar":http://github.com/subtleGradient/persistent-asynchronous-script-runner/tarball/master
+
+Make sure you rename the root folder of this project to GuiMate.tmbundle to make TextMate recognize it as a bundle.
