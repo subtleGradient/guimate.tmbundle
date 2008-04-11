@@ -25,7 +25,7 @@ var ci     = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git commit -v', hash )
 
 document.write('<br /> Push:');
 var push   = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh Master to origin" onclick="push.clear();push.run()" />');
-var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push Stage Master" onclick="stage.clear();stage.run()" />');
+var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push Master to \'stage\'" onclick="stage.clear();stage.run()" />');
 
 
 
