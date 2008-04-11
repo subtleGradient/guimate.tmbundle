@@ -21,17 +21,17 @@ document.write('<input accesskey="k" type="button" value="[K]ill Log"  onclick="
 
 document.write('<br /> Commit:');
 var addall = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git add *; git st', hash );document.write('<input accesskey="a" type="button" value="[A]dd * " onclick="addall.clear();addall.run()" />');
-var ci     = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git commit -v', hash );document.write('<input accesskey="s" type="button" value="[s] Commit…" onclick="ci.clear();ci.run()" />');
+var ci     = new ShellScript('echo "Committing…"; cd "$TM_PROJECT_DIRECTORY"; git commit -v', hash );document.write('<input accesskey="s" type="button" value="[s] Commit…" onclick="ci.clear();ci.run()" />');
 
 document.write('<br /> Push:');
-var push   = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh Master to origin" onclick="push.clear();push.run()" />');
-var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push Master to \'stage\'" onclick="stage.clear();stage.run()" />');
+var push   = new ShellScript('echo "Pushing to origin…"; cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh to origin" onclick="push.clear();push.run()" />');
+var stage  = new ShellScript('echo "Pushing to stage…"; cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push to \'stage\'" onclick="stage.clear();stage.run()" />');
 
 
 
 
 // diff.run();
-new ShellScript('cd "$TM_PROJECT_DIRECTORY";echo "COMMIT"; git commit -v -a && echo ""; echo "STATUS"; git status', hash ).run();
+new ShellScript('cd "$TM_PROJECT_DIRECTORY";echo "Committing…"; git commit -v -a && echo ""; echo "Status"; git status', hash ).run();
 
 /*
 ${10:diff}   = new ShellScript('cd "\$TM_PROJECT_DIRECTORY"; ${20:ls -lap}',     hash);
