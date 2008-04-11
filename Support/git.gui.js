@@ -10,7 +10,7 @@ document.write('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outpu
 var edit   = new ShellScript('open "$TM_BUNDLE_SUPPORT/../GuiMate.tmproj"; mate "$TM_BUNDLE_SUPPORT/git.gui.js" &>/dev/null &',     { logElement: errElement, errElement: errElement });
 document.write('<input type="button" value="edit" onclick="edit.run().close()" style="position:absolute;top:10px;right:10px;z-index:9999" />');
 
-var hash = { logElement: logElement, errElement: errElement }
+var hash = { logElement: logElement, errElement: errElement };
 
 // Git commands
 document.write(' Info:');
@@ -24,8 +24,8 @@ var addall = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git add *; git st', ha
 var ci     = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git commit -v', hash );document.write('<input accesskey="s" type="button" value="[s] Commit…" onclick="ci.clear();ci.run()" />');
 
 document.write('<br /> Push:');
-var push   = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push remote master:master', hash );document.write('<input accesskey="u" type="button" value="P[u]sh Remote Master" onclick="push.clear();push.run()" />');
-var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage  master:master', hash );document.write('<input type="button" value="Push Stage Master" onclick="stage.clear();stage.run()" />');
+var push   = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh Master to origin" onclick="push.clear();push.run()" />');
+var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push Stage Master" onclick="stage.clear();stage.run()" />');
 
 
 
