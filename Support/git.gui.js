@@ -31,7 +31,7 @@ var stage  = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash
 
 
 // diff.run();
-new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git commit -v -a && git status', hash ).run();
+new ShellScript('cd "$TM_PROJECT_DIRECTORY";echo "COMMIT"; git commit -v -a && echo ""; echo "STATUS"; git status', hash ).run();
 
 /*
 ${10:diff}   = new ShellScript('cd "\$TM_PROJECT_DIRECTORY"; ${20:ls -lap}',     hash);
