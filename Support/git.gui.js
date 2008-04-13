@@ -1,7 +1,15 @@
+try{
+
+// function init() {
+
 if(TextMate && TextMate.system){
 
 // Require
 // eval(TextMate.system('cat "$TM_BUNDLE_SUPPORT/TextMate.system.js"',null).outputString);
+
+baseelement = document.body;
+logElement = document.createElement('pre'); logElement.appendChild(document.createTextNode('')); logElement.setAttribute('id','log'); baseelement.appendChild(logElement);
+errElement = document.createElement('pre'); errElement.appendChild(document.createTextNode('')); errElement.setAttribute('id','err'); baseelement.appendChild(errElement);
 
 // COMMANDS
 // TODO: Add a nice way to add a button for a command in the Class itself
@@ -38,4 +46,7 @@ ${10:diff}   = new ShellScript('cd "\$TM_PROJECT_DIRECTORY"; ${20:ls -lap}',    
 document.write('<input type="button" value="$10"  onclick="$10.clear();$10.run().close()" />')
 */
 
+// }
+
 }else{document.write('This script requires TextMate.system');};
+}catch(e){ document.write(e); };

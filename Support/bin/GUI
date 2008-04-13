@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+tehFile = ENV['TM_BUNDLE_SUPPORT'] + '/' + ARGV.first + '.gui.html'
+tehFile = File.expand_path tehFile
+begin
+  puts %{<base href="file://#{File.dirname tehFile}/" />}
+  puts File.read(tehFile)
+rescue Exception => e
+  p e
+end

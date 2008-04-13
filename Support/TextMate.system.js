@@ -70,12 +70,6 @@ ShellScript.prototype = {
 	status : function(){ if (!this.command) return null;  return this.command.status; }
 };
 
-base = document.getElementById('tm_webpreview_content') || document;
-baseelement = document.getElementById('tm_webpreview_content') || document;
-
-logElement = document.createElement('pre'); logElement.appendChild(document.createTextNode('')); logElement.setAttribute('id','log'); baseelement.appendChild(logElement);
-errElement = document.createElement('pre'); errElement.appendChild(document.createTextNode('')); errElement.setAttribute('id','err'); baseelement.appendChild(errElement);
-
 // { logElement: document.getElementById('log'), errElement: document.getElementById('err') }
 
 // # escape text for use in an AppleScript string

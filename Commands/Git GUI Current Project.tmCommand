@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>cat "$TM_BUNDLE_SUPPORT/git.gui.html"
+	<string>GUI git
 </string>
 	<key>input</key>
 	<string>none</string>
