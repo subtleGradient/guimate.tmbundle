@@ -1,11 +1,5 @@
-try{
+try{if(TextMate && TextMate.system){
 
-// function init() {
-
-if(TextMate && TextMate.system){
-
-// Require
-// eval(TextMate.system('cat "$TM_BUNDLE_SUPPORT/TextMate.system.js"',null).outputString);
 
 baseelement = document.body;
 logElement = document.createElement('pre'); logElement.appendChild(document.createTextNode('')); logElement.setAttribute('id','log'); baseelement.appendChild(logElement);
@@ -35,9 +29,6 @@ document.write(' Push:');
 var push   = new ShellScript('echo "Pushing to origin…"; cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh to origin" onclick="push.clear();push.run()" />');
 var stage  = new ShellScript('echo "Pushing to stage…"; cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push to \'stage\'" onclick="stage.clear();stage.run()" />');
 
-
-
-
 // diff.run();
 new ShellScript('cd "$TM_PROJECT_DIRECTORY";echo "Committing…"; git commit -v -a && echo ""; echo "Status"; git status', hash ).run();
 
@@ -46,7 +37,5 @@ ${10:diff}   = new ShellScript('cd "\$TM_PROJECT_DIRECTORY"; ${20:ls -lap}',    
 document.write('<input type="button" value="$10"  onclick="$10.clear();$10.run().close()" />')
 */
 
-// }
 
-}else{document.write('This script requires TextMate.system');};
-}catch(e){ document.write(e); };
+}else{document.write('This script requires TextMate.system');};}catch(e){ document.write(e); };
