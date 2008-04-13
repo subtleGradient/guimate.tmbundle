@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || '~/library'
-TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY'] || TM_PROJECT_DIRECTORY + '../'
+TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
+TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY'] || Dir[TM_BUNDLE_SUPPORT + '/../']
 
 module GitGUI
   class << self
     def edit
-      puts `open "#{TM_BUNDLE_SUPPORT}/../GuiMate.tmproj"; mate "$TM_BUNDLE_SUPPORT/git.gui.js" &>/dev/null &`
+      puts `open "#{File.expand_path TM_BUNDLE_SUPPORT + '/../GuiMate.tmproj'}"; mate "#{TM_BUNDLE_SUPPORT}/git.gui.js" &>/dev/null &`
     end
     def diff
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git diff|mate &>/dev/null &`
