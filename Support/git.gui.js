@@ -1,7 +1,7 @@
 if(TextMate && TextMate.system){
 
 // Require
-eval(TextMate.system('cat "$TM_BUNDLE_SUPPORT/TextMate.system.js"',null).outputString);
+// eval(TextMate.system('cat "$TM_BUNDLE_SUPPORT/TextMate.system.js"',null).outputString);
 
 // COMMANDS
 // TODO: Add a nice way to add a button for a command in the Class itself

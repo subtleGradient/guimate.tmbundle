@@ -5,21 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env bash
-
-. "$TM_SUPPORT_PATH/lib/webpreview.sh"
-html_header "Git GUI"
-
-echo '&lt;pre id="debug"&gt;&lt;script type="text/javascript" charset="utf-8"&gt; try{'
-echo '/*YOUR STUFF*/'
-export TM_BUNDLE_SUPPORT0=$TM_BUNDLE_SUPPORT
-
-cat "$TM_BUNDLE_SUPPORT/git.gui.js"
-
-echo '/*YOUR STUFF*/'
-echo '}catch(e){ document.write("&lt;strong style=\"color:red\"&gt;"+e+"&lt;/strong&gt;")}; &lt;/script&gt;&lt;/pre&gt;'
-
-html_footer
+	<string>cat "$TM_BUNDLE_SUPPORT/git.gui.html"
 </string>
 	<key>input</key>
 	<string>none</string>
