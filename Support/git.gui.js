@@ -27,11 +27,11 @@ var st     = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git status', hash     
 var GitNub = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; nub . &>/dev/null &', { logElement: errElement, errElement: errElement }        );document.write('<input accesskey="n" type="button" value="Git[N]ub" onclick="GitNub.run().close()" />');
 document.write('<input accesskey="k" type="button" value="[K]ill Log"  onclick="st.clear();" style="font-size:0.5em" />');
 
-document.write('<br /> Commit:');
+document.write(' Commit:');
 var addall = new ShellScript('cd "$TM_PROJECT_DIRECTORY"; git add *; git st', hash );document.write('<input accesskey="a" type="button" value="[A]dd * " onclick="addall.clear();addall.run()" />');
 var ci     = new ShellScript('echo "Committing…"; cd "$TM_PROJECT_DIRECTORY"; git commit -v', hash );document.write('<input accesskey="s" type="button" value="[s] Commit…" onclick="ci.clear();ci.run()" />');
 
-document.write('<br /> Push:');
+document.write(' Push:');
 var push   = new ShellScript('echo "Pushing to origin…"; cd "$TM_PROJECT_DIRECTORY"; git push origin', hash );document.write('<input accesskey="u" type="button" value="P[u]sh to origin" onclick="push.clear();push.run()" />');
 var stage  = new ShellScript('echo "Pushing to stage…"; cd "$TM_PROJECT_DIRECTORY"; git push stage',  hash );document.write('<input type="button" value="Push to \'stage\'" onclick="stage.clear();stage.run()" />');
 
