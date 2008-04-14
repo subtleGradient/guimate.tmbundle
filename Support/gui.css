@@ -79,17 +79,21 @@ hr.space{background:#fff;color:#fff;}
 
 /* @group GUI */
 
-body{background:#222;}
+body {
+	background: #222;
+	padding: 3em 0 2em;
+}
 
 #toolbar {
-	background: #CCC;
+	background: #979797;
 	border-bottom: 1px solid #878787;
-	padding: 1em;
+	padding: 0 1em;
 	position: fixed;
 	top: 0px;
 	right: 0px;
 	left: 0px;
 	-webkit-box-shadow: 0px -1px 10px #000;
+	z-index: 1000;
 }
 
 #context {
@@ -102,22 +106,53 @@ body{background:#222;}
 	left: 0px;
 	-webkit-box-shadow: 0px 1px 10px #000;
 }
-body{padding: 3em 0;}
 
 input[value='edit']{float:right;}
-h2{width: 100%;overflow:hidden; font-size:inherit; line-height:inherit; padding:1em; margin:0;}
+input[type='button'] {
+	background: #666;
+	color: #FFF;
+	border: none;
+	height: 2em;
+	cursor: pointer;
+	border: 1px solid #444;
+	border-top-color: #999;
+	border-left-color: #999;
+	-webkit-border-radius: 3px;
+	margin: 4px 0;
+	color: #ddd;
+	text-shadow: 1px 1px 1px #333;
+	-webkit-transition: background-color 0.2s ease-in;
+}
+input[type='button']:hover,input[type='button']:focus{
+	background: #333;
+}
 
-#log {
+
+h2{width: 100%;overflow:hidden; font-size:inherit; line-height:2em; padding:0 1em; margin:0;}
+
+pre:empty{opacity:0.25;}
+pre {
 	margin: 1.5em;
 	padding: 1em;
-	border: 1px solid #000;
+	border: 2px solid #000;
 	outline: 1px solid #333;
 	
 	overflow-x: auto;
 	color: #eee;
 	background: #111;
-	-webkit-border-radius: 2px;
+	-webkit-border-radius: 3px;
+	text-shadow: 1px 2px 1px #000;
+	
+	-webkit-box-shadow: 0px 0px 10px #333;
+	-webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
 }
+pre:hover{
+	-webkit-box-shadow: 0px 0px 15px #666;
+}
+
+/*::selection{background:#000 !important; }*/
+body,div{-khtml-user-select:none; cursor: default; }
+pre, h2{-khtml-user-select:text !important; cursor: text;}
 
 pre{font-size:11px;}
 
