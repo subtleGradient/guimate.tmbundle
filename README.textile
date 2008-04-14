@@ -17,6 +17,6 @@ h3. or Download...
 
 Make sure you rename the root folder of this project to GuiMate.tmbundle to make TextMate recognize it as a bundle.
 
-h3. Updates Style!
+h3. Updated Style!
 
 <a href="http://www.flickr.com/photos/thomas_aylott/2412253450/" title="Git GUI by Thomas Aylott, on Flickr"><img src="http://farm4.static.flickr.com/3134/2412253450_1b305261d7_o.png" width="823" height="541" alt="Git GUI" /></a>
