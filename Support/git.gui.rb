@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
-TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY'] || Dir[TM_BUNDLE_SUPPORT + '/../']
+TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY']
 
 module GitGUI
   class << self
@@ -49,5 +49,6 @@ module GitGUI
 end
 
 if __FILE__ == $0
+  abort %Q{This only works with projects, not individual files :(} unless TM_PROJECT_DIRECTORY
   GitGUI::send ARGV[0]
 end

@@ -21,6 +21,20 @@
 	<integer>220</integer>
 	<key>metaData</key>
 	<dict>
+		<key>README.textile</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>50</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Support/TextMate.system.js</key>
 		<dict>
 			<key>caret</key>
@@ -54,9 +68,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>18</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>10</integer>
+				<integer>23</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -68,9 +82,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>32</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -110,6 +124,7 @@
 	<array>
 		<string>Support/TextMate.system.js</string>
 		<string>Support/git.gui.js</string>
+		<string>README.textile</string>
 		<string>Support/git.gui.html</string>
 		<string>Support/gui.css</string>
 		<string>Support/git.gui.rb</string>
@@ -118,7 +133,7 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>showFileHierarchyPanel</key>
-	<true/>
+	<false/>
 	<key>treeState</key>
 	<dict>
 		<key>GuiMate.tmbundle</key>
@@ -146,6 +161,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{0, 69}, {1119, 1109}}</string>
+	<string>{{-1200, -12}, {1092, 955}}</string>
 </dict>
 </plist>
