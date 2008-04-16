@@ -19,17 +19,19 @@ var Git={
 			// Handle Options
 			if(!options) options = Git.options;
 			if(!options.logElement) options.logElement = Git.options.logElement;
+			if(!options.errElement) options.errElement = Git.options.errElement;
 			
 			// Create the script
 			Git.DO[command] = new ShellScript('"$TM_BUNDLE_SUPPORT/git.gui.rb" '+command, options);
-			if (options == 'noui') return Git.DO[command];
+			if(options.hide) return Git.DO[command];
 			
 			// Hook into the UI
 			options.key = command[0];
-			toolbar.innerHTML += '<input accesskey="'   + (options.key || command[0])
-			                  +  '" value="'            + command
-			                  +  '" onclick="Git.DO[\'' + command
-			                  +  '\'].run()" type="button" />\n';
+			toolbar.innerHTML += '<input '+
+			                     ' accesskey="'+( options.key || command[0] )+'"'+
+			                     ' value="'+ command +'"'+
+			                     ' onclick="Git.DO[\''+ command +'\'].run()"'+
+			                     ' type="button" />\n';
 			
 			return Git.DO[command];
 		}catch(e){
@@ -43,7 +45,7 @@ var Git={
 // =======
 Git.def('diff');
 Git.def('addall!');
-Git.def('default','noui').run();
+Git.def('default',{hide:true}).run();
 
 
 // =======
