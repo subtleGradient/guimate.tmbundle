@@ -44,7 +44,12 @@ var Git={
 // = Def =
 // =======
 Git.def('diff');
+Git.def('status');
+Git.def('nub');
+Git.def('push!');
+Git.def(' stage!');
 Git.def('addall!');
+Git.def('commit');
 Git.def('default',{hide:true}).run();
 
 
