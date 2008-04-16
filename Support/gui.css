@@ -148,9 +148,6 @@ pre {
 	-webkit-box-shadow: 0px 0px 10px #333;
 	-webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
 }
-pre:hover{
-	-webkit-box-shadow: 0px 0px 15px #666;
-}
 
 /*::selection{background:#000 !important; }*/
 body,div{-khtml-user-select:none; cursor: default; }
