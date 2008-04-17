@@ -43,7 +43,7 @@ module GitGUI
     end
     
     def push!
-      puts "Pushing to origin…"
+      print "Pushing to origin…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin`
     end
     
