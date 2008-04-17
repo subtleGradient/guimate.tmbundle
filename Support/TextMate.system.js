@@ -29,11 +29,13 @@ ShellScript.prototype = {
 	},
 	
 	clear: function(){
+		document.getElementById('fulllog').innerHTML += window.logElement.innerHTML + window.errElement.innerHTML;
 		window.logElement.innerHTML='';
 		window.errElement.innerHTML='';
 	},
 	
 	run: function(){
+		this.clear();
 		this.command = null;
 		this.command = TextMate.system(this.script, this.endHandler);
 		this.command.onreadoutput = this.onreadoutput;
@@ -43,7 +45,7 @@ ShellScript.prototype = {
 		return this;
 	},
 	
-	endHandler   : function(output){TextMate.isBusy = false; 
+	endHandler   : function(output){TextMate.isBusy = false;
 	                                if (output) window.logElement.innerHTML+= output;},
 	onreadoutput : function(output){if (output) window.logElement.innerHTML+= output;},
 	onreaderror  : function(output){if (output) window.errElement.innerHTML+= output;},

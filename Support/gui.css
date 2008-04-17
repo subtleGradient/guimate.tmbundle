@@ -155,4 +155,7 @@ pre, h2{-khtml-user-select:text !important; cursor: text;}
 
 pre{font-size:11px;}
 
+#fulllog{display:none;}
+.fulllog #fulllog{display:block !important;}
+
 /* @end   GUI */

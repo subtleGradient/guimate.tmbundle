@@ -9,9 +9,9 @@ module GitGUI
     
     alias :really_send :send 
     def send(*args)
-      puts '<pre>'
+      # puts '<pre>'
       self.really_send *args
-      puts '</pre>'
+      # puts '</pre>'
     end
     
     def edit
