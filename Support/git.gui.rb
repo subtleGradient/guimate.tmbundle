@@ -6,6 +6,14 @@ TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY']
 module GitGUI
   class << self
     
+    
+    alias :really_send :send 
+    def send(*args)
+      puts '<pre>'
+      self.really_send *args
+      puts '</pre>'
+    end
+    
     def edit
       `open "#{File.expand_path TM_BUNDLE_SUPPORT + '/../GuiMate.tmproj'}"; mate "#{TM_BUNDLE_SUPPORT}/git.gui.js" &>/dev/null &`
     end

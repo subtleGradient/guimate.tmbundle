@@ -29,10 +29,6 @@ ShellScript.prototype = {
 	},
 	
 	clear: function(){
-		// document.body.removeChild(window.logElement);
-		// document.body.removeChild(window.errElement);
-		// window.logElement = document.createElement('div'); logElement.setAttribute('id','log'); document.body.appendChild(window.logElement);
-		// window.errElement = document.createElement('div'); errElement.setAttribute('id','err'); document.body.appendChild(window.errElement);
 		window.logElement.innerHTML='';
 		window.errElement.innerHTML='';
 	},

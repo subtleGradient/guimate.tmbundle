@@ -52,13 +52,13 @@ Git.def('addall!');
 Git.def('commit');
 Git.def('default',{hide:true}).run();
 
+document.querySelector('#context').innerHTML = ('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outputString.replace('','')+'</h2>');
 
 // =======
 // = Old =
 // =======
 // COMMANDS
 // TODO: Add a nice way to add a button for a command in the Class itself
-// document.querySelector('#context').innerHTML = ('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outputString.replace('','')+'</h2>');
 // 
 // var edit   = new ShellScript('"$TM_BUNDLE_SUPPORT/git.gui.rb" edit',     { logElement: errElement, errElement: errElement });
 // toolbar.innerHTML += ('<input type="button" value="edit" onclick="edit.run().close()" />');
