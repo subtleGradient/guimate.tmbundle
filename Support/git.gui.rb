@@ -19,10 +19,12 @@ module GitGUI
     end
     
     def diff
+      print "Opening Diff to TextMate…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git diff|mate &>/dev/null &`
     end
     
     def status
+      puts "Status"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git status`
     end
     
@@ -51,9 +53,7 @@ module GitGUI
     end
     
     def default
-      puts "Committing…"
-      ENV['GIT_EDITOR'] ||= 'mate -w'
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v -a && echo ""; echo "Status"; git status`
+      status
     end
     
   end
