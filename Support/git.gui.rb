@@ -28,6 +28,7 @@ module GitGUI
     
     def commit
       puts "Committing…"
+      ENV['GIT_EDITOR'] ||= 'mate -w'
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v`
     end
     
@@ -42,7 +43,9 @@ module GitGUI
     end
     
     def default
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; echo "Committing…"; git commit -v -a && echo ""; echo "Status"; git status`
+      puts "Committing…"
+      ENV['GIT_EDITOR'] ||= 'mate -w'
+      puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v -a && echo ""; echo "Status"; git status`
     end
     
   end
