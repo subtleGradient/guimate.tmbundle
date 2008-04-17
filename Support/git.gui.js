@@ -43,13 +43,18 @@ var Git={
 // =======
 // = Def =
 // =======
-Git.def('diff');
 Git.def('status');
-Git.def('nub');
-Git.def('push!');
-Git.def(' stage!');
+Git.def('diff');
+// Git.def('nub');
+
+toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 Git.def('addall!');
 Git.def('commit');
+
+toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+Git.def('push!');
+Git.def(' stage!');
+
 Git.def('default',{hide:true}).run();
 
 document.querySelector('#context').innerHTML = ('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outputString.replace('','')+'</h2>');
