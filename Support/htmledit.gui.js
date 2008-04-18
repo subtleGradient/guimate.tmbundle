@@ -1,58 +1,52 @@
 toolbar = document.querySelector('#toolbar');
 
 // =======
-// = Git =
+// = GUI =
 // =======
-var Git={
+var GUI={
 	options:{ 
 		logElement: document.querySelector('#log .log'), 
 		errElement: document.querySelector('#log .errors')
 	},
-	DO:{},
-	def: function(command, options){
-		try{
-			// Catch Errors Early
-			if (!command) throw('No Command');
-			
-			// Handle Options
-			if(!options) options = Git.options;
-			if(!options.logElement) options.logElement = Git.options.logElement;
-			if(!options.errElement) options.errElement = Git.options.errElement;
-			
-			// Create the script
-			Git.DO[command] = new ShellScript('"$TM_BUNDLE_SUPPORT/git.gui.rb" '+command, options);
-			if(options.hide) return Git.DO[command];
-			
-			// Hook into the UI
-			options.key = command[0];
-			toolbar.innerHTML += '<input '+
-			                     ' accesskey="'+( options.key || command[0] )+'"'+
-			                     ' value="'+ command +'"'+
-			                     ' onclick="Git.DO[\''+ command +'\'].run()"'+
-			                     ' type="button" />\n';
-			
-			return Git.DO[command];
-		}catch(e){
-			Git.options.errElement.innerText += command + '\n' + e + '\n';
-		};
-	}
+	DO:{}
+	// def: function(command, options){
+	// 	try{
+	// 		// Catch Errors Early
+	// 		if (!command) throw('No Command');
+	// 		
+	// 		// Handle Options
+	// 		if(!options) options = GUI.options;
+	// 		if(!options.logElement) options.logElement = GUI.options.logElement;
+	// 		if(!options.errElement) options.errElement = GUI.options.errElement;
+	// 		
+	// 		// Create the script
+	// 		GUI.DO[command] = new ShellScript('"$TM_BUNDLE_SUPPORT/htmledit.gui.rb" '+command, options);
+	// 		if(options.hide) return GUI.DO[command];
+	// 		
+	// 		// Hook into the UI
+	// 		options.key = command[0];
+	// 		toolbar.innerHTML += '<input '+
+	// 		                     ' accesskey="'+( options.key || command[0] )+'"'+
+	// 		                     ' value="'+ command.replace('"','') +'"'+
+	// 		                     ' onclick="GUI.DO[\''+ command +'\'].run()'+ (options.write1?'.write()':'') +'"'+
+	// 		                     ' type="button" />\n';
+	// 		
+	// 		return GUI.DO[command];
+	// 	}catch(e){
+	// 		GUI.options.errElement.innerText += command + '\n' + e + '\n';
+	// 	};
+	// }
 };
 
 // =======
 // = Def =
 // =======
-Git.def('status');
-Git.def('diff');
-// Git.def('nub');
+document.getElementById('edit').innerHTML = TextMate.system('"$TM_BUNDLE_SUPPORT/htmledit.gui.rb" default',null).outputString;
 
-toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-Git.def('addall!');
-Git.def('commit');
-
-toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-Git.def('push!');
-Git.def(' stage!');
-
-Git.def('default',{hide:true}).run();
-
-document.querySelector('#context').innerHTML = ('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outputString.replace('','')+'</h2>');
+var insert = new ShellScript('"$TM_BUNDLE_SUPPORT/htmledit.gui.rb" insert', GUI.options);
+insert.click = function(){insert.run().write(document.getElementById('edit').innerHTML).close();};
+toolbar.innerHTML += '<input '+
+                     ' accesskey="i"'+
+                     ' value="Insert HTML"'+
+                     ' onclick="insert.click()"'+
+                     ' type="button" />\n';
