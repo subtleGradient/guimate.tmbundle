@@ -42,9 +42,10 @@ var GUI={
 // = Def =
 // =======
 document.getElementById('edit').innerHTML = TextMate.system('"$TM_BUNDLE_SUPPORT/htmledit.gui.rb" default',null).outputString;
+document.getElementById('edit').contentEditable=true;
 
 var insert = new ShellScript('"$TM_BUNDLE_SUPPORT/htmledit.gui.rb" insert', GUI.options);
-insert.click = function(){insert.run().write(document.getElementById('edit').innerHTML).close();};
+insert.click = function(){insert.run().write(document.getElementById('edit').innerHTML).close();window.close()};
 toolbar.innerHTML += '<input '+
                      ' accesskey="i"'+
                      ' value="Insert HTML"'+
