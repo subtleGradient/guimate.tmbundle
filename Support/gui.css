@@ -11,7 +11,7 @@ blockquote, q {quotes:"" "";}
 a img {border:none;}
 
 /* typography.css */
-body {font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;}
+body {font-size:75%;color:#222;background:#fff;font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;}
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
@@ -80,13 +80,16 @@ hr.space{background:#fff;color:#fff;}
 /* @group GUI */
 
 body {
-	background: #222;
+	background: #111;
 	padding: 3em 0 2em;
+	border: 1px solid #1c1c1c;
 }
 
 #toolbar {
-	background: #979797;
-	border-bottom: 1px solid #878787;
+	background: #333;
+	border: 1px solid #3c3c3c;
+	border-top: none;
+/*	border-bottom: 1px solid #878787;*/
 	padding: 0 1em;
 	position: fixed;
 	top: 0px;
@@ -95,6 +98,7 @@ body {
 	-webkit-box-shadow: 0px -1px 10px #000;
 	z-index: 1000;
 	text-align: center;
+	padding: 0.5em 1em;
 }
 
 #context {
@@ -105,11 +109,13 @@ body {
 	bottom: 0px;
 	right: 0px;
 	left: 0px;
-	-webkit-box-shadow: 0px 1px 10px #000;
+	-webkit-box-shadow: 0px 1px 8px #000;
+	background: #333;
+	border: 1px solid #3c3c3c;
 }
 
 input[value='edit']{float:right;}
-input[type='button'] {
+/*input[type='button'] {
 	background: #666;
 	color: #FFF;
 	border: none;
@@ -129,24 +135,36 @@ input[type='button']:hover,input[type='button']:focus{
 	position: relative;
 	z-index: 1;
 }
+*/
 
+h2 {
+	width: 100%;
+	overflow: hidden;
+	font-size: inherit;
+	line-height: 2em;
+/*	padding: 0 1em;*/
+	margin: 0;
+	color: #fff;
+	text-shadow: 1px 2px 1px #222;
+	text-align: center;
+}
 
-h2{width: 100%;overflow:hidden; font-size:inherit; line-height:2em; padding:0 1em; margin:0;}
-
-pre:empty{opacity:0.25;}
+pre:empty{opacity:0;}
 pre {
+	font-family: ProFont, MPW, Monaco;
+	font-size: 9px !important;
 	margin: 1.5em;
 	padding: 1em;
-	border: 2px solid #000;
-	outline: 1px solid #333;
+	border: 1px solid #000;
+	outline: 1px solid #1c1c1c;
 	
 	overflow-x: auto;
 	color: #eee;
-	background: #111;
+	background: #0c0c0c;
 	-webkit-border-radius: 3px;
 	text-shadow: 1px 2px 1px #000;
 	
-	-webkit-box-shadow: 0px 0px 10px #333;
+	-webkit-box-shadow: 0px 0px 8px #0c0c0c;
 	-webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
 }
 
