@@ -1,3 +1,5 @@
+<a href="http://www.flickr.com/photos/thomas_aylott/2441569547/" title="GuiMate 1.5 Git GUI by Thomas Aylott, on Flickr"><img src="http://farm4.static.flickr.com/3134/2441569547_49385d8c5d_o.png" width="483" height="303" alt="GuiMate 1.5 Git GUI" /></a>
+
 h1. GuiMate for TextMate
 
 It's basically just a way to easily bind shell scripts to buttons and see the results right in that same window. It's very useful (to me) for scripts that you run hundreds of times per day or need constant access to, no matter what document or project is open or closed.
@@ -28,3 +30,4 @@ h3. Refactor Javascript
 ** "iTunes style" Sidebar
 ** Logs
 *** Include input with log output
+
