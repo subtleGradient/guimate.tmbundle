@@ -41,6 +41,8 @@ var Git={
 // =======
 // = Def =
 // =======
+Git.def('log');
+
 Git.def('status');
 Git.def('diff');
 // Git.def('nub');

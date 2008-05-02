@@ -169,6 +169,11 @@ pre {
 pre{overflow: hidden;}
 pre:hover{overflow-x: auto;}
 
+pre a:link    {color:#99f; text-decoration: underline;}
+pre a:visited {color:#f9f; text-decoration: none;}
+pre a:hover   {color:#66f; text-decoration: none; background:#000;}
+pre a:active  {color:#66c; text-decoration: underline;}
+
 /*::selection{background:#000 !important; }*/
 body,div{-khtml-user-select:none; cursor: default; }
 pre, h2{-khtml-user-select:text !important; cursor: text;}
