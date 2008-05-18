@@ -29,7 +29,7 @@ module GitGUI
       @log.gsub!(/\[#(\d+).*\]/){|r|
         %{<a href="http://#{ ENV['TM_LH_ACCOUNT'] }.lighthouseapp.com/projects/#{ ENV['TM_LH_PROJECT_ID'] }/tickets/#{$1}">#{r}</a>}
       }
-      puts @log
+      puts replace_hash_with_html(@log)
     end
     
     def status
@@ -65,6 +65,21 @@ module GitGUI
       status
     end
     
+    private
+    def hash_to_hex_colors(hash)
+      hash.scan(/[0-9a-fA-F]{6}/).map { |c| "##{c}" }
+    end
+
+    def hash_to_html(hash)
+      hash_to_hex_colors(hash).map do |c|
+        "<span style='color:#{c};'>#{c.sub('#','')}</span>"
+      end.join("")
+    end
+
+    def replace_hash_with_html(text)
+      text.gsub(/[0-9a-fA-F]{6}/){|h| hash_to_html(h)}
+    end
+
   end
 end
 
