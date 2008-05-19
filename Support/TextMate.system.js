@@ -1,54 +1,49 @@
-var ShellScript = function(command, options){this.initialize(command, options);};
-// TODO: Add support for multiple scripts at once
-// ShellScript.begin = function(script){
-// 	ShellScript.scripts = this.scripts || [];
-// 	ShellScript.scripts.push(script);
-// };
-// ShellScript.end   = function(script){};
-ShellScript.prototype = {
-	
+var ShellScript = new Class({
 	initialize: function(script, options){
+		ShellScript[script] = this;
+		
 		this.script = script;
 		
-		window.logElement = document.body;
-		window.errElement = document.body;
+		this.logElement = document.body;
+		this.errElement = document.body;
 		
 		if (options){
 			if (options.logElement){
-				window.logElement = options.logElement;
-				window.errElement = options.logElement;
+				this.logElement = options.logElement;
+				this.errElement = options.logElement;
 			}
-			if (options.errElement) window.errElement = options.errElement;
+			if (options.errElement) this.errElement = options.errElement;
 			
 			if (options && options.endHandler  ) this.endHandler   = options.endHandler;
 			if (options && options.onreadoutput) this.onreadoutput = options.onreadoutput;
 			if (options && options.onreaderror ) this.onreaderror  = options.onreaderror;
 		}
+		this.run = this.run.bind(this);
 		
 		return this;
 	},
 	
 	clear: function(){
-		document.getElementById('fulllog').innerHTML += window.logElement.innerHTML + window.errElement.innerHTML;
-		window.logElement.innerHTML='';
-		window.errElement.innerHTML='';
+		document.getElementById('fulllog').innerHTML += this.logElement.innerHTML + this.errElement.innerHTML;
+		this.logElement.innerHTML='';
+		this.errElement.innerHTML='';
 	},
 	
 	run: function(){
 		this.clear();
 		this.command = null;
-		this.command = TextMate.system(this.script, this.endHandler);
-		this.command.onreadoutput = this.onreadoutput;
-		this.command.onreaderror  = this.onreaderror;
+		this.command = TextMate.system(this.script, this.endHandler.bind(this));
+		this.command.onreadoutput = this.onreadoutput.bind(this);
+		this.command.onreaderror  = this.onreaderror.bind(this);
 		this.resetTimeout();
 		TextMate.isBusy = true;
 		return this;
 	},
 	
 	endHandler   : function(output){TextMate.isBusy = false;
-	                                if (output) window.logElement.innerHTML+= output;},
-	onreadoutput : function(output){if (output) window.logElement.innerHTML+= output;},
-	onreaderror  : function(output){if (output) window.errElement.innerHTML+= output;},
+	                                if (output) this.logElement.innerHTML+= output;},
+	onreadoutput : function(output){if (output) this.logElement.innerHTML+= output;},
+	onreaderror  : function(output){if (output) this.errElement.innerHTML+= output;},
 	
 	resetTimeout : function(time){
 		if (this.timeout) clearTimeout(this.timeout);
@@ -66,7 +61,7 @@ ShellScript.prototype = {
 	close  : function(){ if (!this.command) return false; this.command.close();  return this;},
 	
 	status : function(){ if (!this.command) return null;  return this.command.status; }
-};
+});
 
 // { logElement: document.getElementById('log'), errElement: document.getElementById('err') }
 

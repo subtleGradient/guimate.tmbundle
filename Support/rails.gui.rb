@@ -19,7 +19,7 @@ module RailsGUI
       `open "#{File.expand_path TM_BUNDLE_SUPPORT + '/../GuiMate.tmproj'}"; mate "#{TM_BUNDLE_SUPPORT}/git.gui.js" &>/dev/null &`
     end
     
-    def server(command='start')
+    def server(command='info')
       if command==='start'
         cmd=%!cd '#{TM_PROJECT_DIRECTORY}';"./script/server" -d -e development!
         puts cmd
@@ -31,6 +31,11 @@ module RailsGUI
         puts cmd
         system(cmd)
       end
+      if command==='info'
+        pids = Dir[TM_PROJECT_DIRECTORY + '/tmp/pids/*.pid'].length
+        print 'Server running' if pids >  0
+        print 'Server stopped' if pids <= 0
+      end
     end
     
     def log
@@ -38,7 +43,7 @@ module RailsGUI
     end
     
     def default
-      status
+      server 'info'
     end
     
     private
