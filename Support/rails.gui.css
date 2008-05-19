@@ -1,0 +1,17 @@
+#info {
+	color: #fff;
+}
+
+#info>* {
+	display: block;
+	float: left;
+	line-height: 3em;
+	padding: 0 1em;
+}
+
+#info .server {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 9999;
+}

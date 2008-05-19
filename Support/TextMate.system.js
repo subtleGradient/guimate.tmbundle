@@ -7,6 +7,7 @@ var ShellScript = new Class({
 		this.logElement = document.body;
 		this.errElement = document.body;
 		
+		this.nobusy = options.nobusy;
 		if (options){
 			if (options.logElement){
 				this.logElement = options.logElement;
@@ -36,7 +37,7 @@ var ShellScript = new Class({
 		this.command.onreadoutput = this.onreadoutput.bind(this);
 		this.command.onreaderror  = this.onreaderror.bind(this);
 		this.resetTimeout();
-		TextMate.isBusy = true;
+		if (!this.nobusy) TextMate.isBusy = true;
 		return this;
 	},
 	

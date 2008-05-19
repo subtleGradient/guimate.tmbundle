@@ -24,6 +24,7 @@ module RailsGUI
         cmd=%!cd '#{TM_PROJECT_DIRECTORY}';"./script/server" -d -e development!
         puts cmd
         system(cmd)
+				browse!
         log
       end
       if command==='stop'
@@ -46,6 +47,10 @@ module RailsGUI
       server 'info'
     end
     
+		def browse!
+			`open http://0.0.0.0:3000`
+		end
+		
     private
     def hash_to_hex_colors(hash)
       hash.scan(/[0-9a-fA-F]{6}/).map { |c| "##{c}" }
