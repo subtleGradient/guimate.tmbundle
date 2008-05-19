@@ -1,9 +1,6 @@
 toolbar = document.querySelector('#toolbar');
 
-// =======
-// = Git =
-// =======
-var Git={
+var GUI={
 	options:{ 
 		logElement: document.querySelector('#log .log'), 
 		errElement: document.querySelector('#log .errors')
@@ -15,25 +12,25 @@ var Git={
 			if (!command) throw('No Command');
 			
 			// Handle Options
-			if(!options) options = Git.options;
-			if(!options.logElement) options.logElement = Git.options.logElement;
-			if(!options.errElement) options.errElement = Git.options.errElement;
+			if(!options) options = GUI.options;
+			if(!options.logElement) options.logElement = GUI.options.logElement;
+			if(!options.errElement) options.errElement = GUI.options.errElement;
 			
 			// Create the script
-			Git.DO[command] = new ShellScript('"$TM_BUNDLE_SUPPORT/git.gui.rb" '+command, options);
-			if(options.hide) return Git.DO[command];
+			GUI.DO[command] = GUI.DO[command] || new ShellScript('"$TM_BUNDLE_SUPPORT/rails.gui.rb" '+command, options);
+			if(options.hide) return GUI.DO[command];
 			
 			// Hook into the UI
 			options.key = command[0];
 			toolbar.innerHTML += '<input '+
 			                     ' accesskey="'+( options.key || command[0] )+'"'+
 			                     ' value="'+ command +'"'+
-			                     ' onclick="Git.DO[\''+ command +'\'].run()"'+
+			                     ' onclick="GUI.DO[\''+ command +'\'].run()"'+
 			                     ' type="button" />\n';
 			
-			return Git.DO[command];
+			return GUI.DO[command];
 		}catch(e){
-			Git.options.errElement.innerText += command + '\n' + e + '\n';
+			GUI.options.errElement.innerText += command + '\n' + e + '\n';
 		};
 	}
 };
@@ -41,20 +38,21 @@ var Git={
 // =======
 // = Def =
 // =======
-Git.def('log');
+GUI.DO['stop_all']={run: function(){
+	for (var _do in GUI.DO) {
+		try{ GUI.DO[_do].cancel(); }catch(e){};
+	};
+}};
+GUI.def('stop_all');
 
-Git.def('status');
-Git.def('diff');
-// Git.def('nub');
+// GUI.DO['log']=new ShellScript('cd "$TM_PROJECT_DIRECTORY"; tail -f ./log/development.log', GUI.options);
 
-toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-Git.def('addall!');
-Git.def('commit');
+GUI.def('server start');
+GUI.def('log');
+GUI.def('server stop');
 
-toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-Git.def('push!');
-Git.def(' stage!');
+// toolbar.innerHTML+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
-Git.def('default',{hide:true}).run();
+// GUI.def('default',{hide:true}).run();
 
 document.querySelector('#context').innerHTML = ('<h2>'+TextMate.system('echo "$TM_PROJECT_DIRECTORY"',null).outputString.replace('','')+'</h2>');

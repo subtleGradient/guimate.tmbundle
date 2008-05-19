@@ -19,20 +19,7 @@ h3. or Download...
 
 Make sure you rename the root folder of this project to GuiMate.tmbundle to make TextMate recognize it as a bundle.
 
-h3. Make a Lighthouse UI
+h3. Rails GUI
 
-* Get the Lighthouse token and project and everything from environment variables
-** That will let you set the variables on your textmate project file
-
-h3. Refactor Javascript
-
-* Make a GUI js Class
-* Define conventions for ...
-** Toolbar Buttons
-*** Click
-*** Toggle
-*** Dropdown
-** "iTunes style" Sidebar
-** Logs
-*** Include input with log output
-
+* server start/stop
+** View the site

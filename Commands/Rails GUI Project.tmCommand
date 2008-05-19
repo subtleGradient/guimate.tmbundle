@@ -5,15 +5,17 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>GUI htmledit
+	<string>GUI rails
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>$</string>
 	<key>name</key>
-	<string>HTML Edit GUI</string>
+	<string>Rails GUI Project</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>uuid</key>
-	<string>DDCBB1D5-9439-45FE-A321-B1B953300025</string>
+	<string>F3E85CF9-F1F3-4BDE-BF24-059B23DAB303</string>
 </dict>
 </plist>
