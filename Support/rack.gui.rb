@@ -16,32 +16,24 @@ module RailsGUI
     end
     
     def edit
-      `open "#{File.expand_path TM_BUNDLE_SUPPORT + '/../GuiMate.tmproj'}"; mate "#{TM_BUNDLE_SUPPORT}/git.gui.js" &>/dev/null &`
+      `open "#{File.expand_path TM_BUNDLE_SUPPORT + '/../GuiMate.tmproj'}"; mate "#{TM_BUNDLE_SUPPORT}/rack.gui.js" &>/dev/null &`
     end
     
     def rackup
-      cmd=%!cd '#{TM_PROJECT_DIRECTORY}';rackup -E development -p 3000!
+      cmd=%!cd '#{TM_PROJECT_DIRECTORY}'\nrackup -E development -p 3000!
       puts cmd
-      browse!
+      # browse!
       system(cmd)
     end
     
     def server(command='info')
       case command
       when 'start'
-        cmd=%!cd '#{TM_PROJECT_DIRECTORY}';"./script/server" -d -e development!
-        puts cmd
-        system(cmd)
-				browse!
-        log
+        rackup
       when 'stop'
-        cmd=%!cd '#{TM_PROJECT_DIRECTORY}';kill `cat "./tmp/pids"/*.pid`!
-        puts cmd
-        system(cmd)
+        print 'Not Implemented'
       when 'info'
-        pids = Dir[TM_PROJECT_DIRECTORY + '/tmp/pids/*.pid'].length
-        print 'Server running' if pids >  0
-        print 'Server stopped' if pids <= 0
+        print 'Not Implemented'
       end
     end
     
@@ -53,8 +45,11 @@ module RailsGUI
       server 'info'
     end
     
+    def browse_url
+      'http://localhost:3000'
+    end
 		def browse!
-			`open http://localhost:3000`
+			`open #{browse_url}`
 		end
 		
     private
@@ -75,7 +70,7 @@ module RailsGUI
   end
 end
 
-if __FILE__ == $0
+if __FILE__ == $0 and ARGV.length > 0
   abort %Q{This only works with projects, not individual files :(} unless TM_PROJECT_DIRECTORY
   RailsGUI::send ARGV[0], *ARGV[1...ARGV.length]
 end

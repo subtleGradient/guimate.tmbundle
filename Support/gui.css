@@ -184,3 +184,30 @@ pre{font-size:11px;}
 .fulllog #fulllog{display:block !important;}
 
 /* @end   GUI */
+
+iframe.browser {
+	background: #fff;
+	border: 2px solid #fff;
+	display: block;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	margin-top: 3em;
+	margin-bottom: 2em;
+	
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+iframe.off{
+	position: static !important;
+	width: 320px !important;
+	height: 200px !important;
+}
+
+input.hide{
+	opacity: 0.25;
+}
