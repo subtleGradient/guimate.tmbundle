@@ -9,8 +9,6 @@
 </string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>$</string>
 	<key>name</key>
 	<string>Rack GUI Project</string>
 	<key>output</key>
