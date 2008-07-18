@@ -11,7 +11,7 @@ ShellScript.implement({
 		if(!$('choosr')){
 			new Element('select',{id:'choosr'})
 			.adopt([
-				new Element('option',{value:'0',text:''}),
+				new Element('option',{value:'0',text:' Commands'}),
 			])
 			.inject('toolbar')
 			.store('script',{});
