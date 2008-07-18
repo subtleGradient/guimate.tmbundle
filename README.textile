@@ -1,4 +1,4 @@
-<a href="http://www.flickr.com/photos/thomas_aylott/2441569547/" title="GuiMate 1.5 Git GUI by Thomas Aylott, on Flickr"><img src="http://farm4.static.flickr.com/3134/2441569547_49385d8c5d_o.png" width="483" height="303" alt="GuiMate 1.5 Git GUI" /></a>
+<a href="http://www.flickr.com/photos/thomas_aylott/2680276797/" title="GuiMate 1.6 Git GUI by Thomas Aylott / subtleGradient by Thomas Aylott, on Flickr"><img src="http://farm4.static.flickr.com/3144/2680276797_9fa0ced2ff_o.png" width="520" height="317" alt="GuiMate 1.6 Git GUI by Thomas Aylott / subtleGradient" /></a>
 
 h1. GuiMate for TextMate
 
