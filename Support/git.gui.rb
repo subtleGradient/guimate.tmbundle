@@ -51,6 +51,12 @@ module GitGUI
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v`
     end
     
+    def commit_all!
+      puts "Committing…"
+      ENV['GIT_EDITOR'] ||= 'mate -w'
+      puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -va`
+    end
+    
     def push!
       print "Pushing to origin…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin`

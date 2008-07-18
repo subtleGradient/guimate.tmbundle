@@ -1,3 +1,17 @@
+try{
+	TextMate;
+}catch(e){
+	TextMate = {
+		system: function(command, endHandler){
+			if(console && console.log){console.log(command)};
+			if(endHandler && typeof endHandler == 'function')endHandler(e.message);
+			this.outputString = e.message;
+			return this;
+		},
+		outputString:''
+	};
+};
+
 var ShellScript = new Class({
 	initialize: function(script, options){
 		ShellScript[script] = this;
