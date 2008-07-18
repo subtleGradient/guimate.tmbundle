@@ -10,7 +10,6 @@ ShellScript.implement({
 	draw_menu: function(command){
 		if(!$('choosr')){
 			new Element('select',{id:'choosr'})
-			.setStyle('float','left')
 			.adopt([
 				new Element('option',{value:'0',text:''}),
 			])
@@ -145,12 +144,12 @@ window.addEvent('domready',function(){
 		// cache_info('browse_url');
 		
 		GUI('status');
-		GUI('log');
+		GUI('log').hide();
 		
 		GUI('diff');
 		GUI('nub').hide();
 		
-		GUI('addall!');
+		GUI('addall!').hide();
 		GUI('commit');
 		GUI('commit_all!').hide();
 		
