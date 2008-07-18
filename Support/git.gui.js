@@ -29,17 +29,24 @@ ShellScript.implement({
 			}).focus();
 			}).delay(1);
 		};
+		var e = new Element('option',{
+			value:command,
+			text: command
+		});
+		
+		if(this.button && this.button.accessKey)
+			e.set('text', e.get('text').replace(RegExp(this.button.accessKey), ''+this.button.accessKey.toUpperCase()+'') );
+		
 		$('choosr').adopt([
-			new Element('option',{ value:command, text:command }),
+			e
 		]).retrieve('script')[command]=this;
 		return this;
 	},
 	draw: function(name){
-		this.draw_menu(name);
 		this.button = new Element('input',{
 			type:'button', 
 			value: name, 
-			accesskey: name[0],
+			accesskey: $$('[accesskey="'+ name[0] +'"]').length ? name[1] : name[0],
 		});
 		
 		this.button.store('script',this);
@@ -52,8 +59,9 @@ ShellScript.implement({
 		// this.button.addEvent('click', function(){ setTimeout(function(){ this.fireEvent('click delay') }.bind(this), 3 *1000); });
 		// this.button.addEvent('click', function(){ setTimeout(function(){ this.fireEvent('click delay') }.bind(this), 4 *1000); });
 		
-		this.button.inject('toolbar');
+		this.draw_menu(name);
 		
+		this.button.inject('toolbar');
 	},
 });
 
@@ -139,16 +147,15 @@ window.addEvent('domready',function(){
 		GUI('status');
 		GUI('log');
 		
-		GUI('status');
 		GUI('diff');
-		// GUI('nub');
+		GUI('nub').hide();
 		
 		GUI('addall!');
 		GUI('commit');
 		GUI('commit_all!').hide();
 		
 		GUI('push!');
-		GUI('stage!');
+		GUI('stage!').hide();
 		
 		GUI('default').hide().run();
 		
