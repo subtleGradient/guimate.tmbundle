@@ -1,4 +1,7 @@
 // -*- Mode: MooTools; tab-width: 4; -*-
+// requires 'TextMate.system.js'
+// requires 'mootools.js'
+
 ShellScript.implement({
 	button:null,
 	
