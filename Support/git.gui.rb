@@ -63,7 +63,7 @@ module GitGUI
     end
     
     def stage!
-      puts "Done Pushing to Stage."
+      print "Done Pushing to Stage."
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage`
     end
     
