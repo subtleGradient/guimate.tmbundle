@@ -22,7 +22,7 @@ window.addEvent('domready',function(){
 		
 		GUI('default').hide().run();
 		
-		$('context').set('html','<h2>'+ShellScriptResult('echo "$TM_PROJECT_DIRECTORY"').replace(/^.*(?=\/.*?\/)/,'…')+'</h2>');
+		GUI_context('PROJECT');
 		
 	}catch(e){
 		$$('#log .errors')[0].innerHTML+=e.message+'\n';

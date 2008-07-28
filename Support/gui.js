@@ -141,3 +141,11 @@ function GUI_toggle(name, ele, mode) {
 	return button;
 }
 
+function GUI_context(context){
+	var CONTEXT = {
+		PROJECT: function(){
+			$('context').set('html','<h2>'+ShellScriptResult('echo "$TM_PROJECT_DIRECTORY"').replace(/^.*(?=\/.*?\/)/,'…')+'</h2>');
+		}
+	};
+	return CONTEXT[context]();
+};
