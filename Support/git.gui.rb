@@ -58,12 +58,12 @@ module GitGUI
     end
     
     def push!
-      print "Pushing to origin…"
+      print "Done Pushing to Origin."
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin`
     end
     
     def stage!
-      puts "Pushing to stage…"
+      puts "Done Pushing to Stage."
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage`
     end
     
