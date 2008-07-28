@@ -9,7 +9,7 @@ ShellScript.implement({
 	
 	draw_menu: function(command){
 		if(!$('choosr')){
-			new Element('select',{id:'choosr'})
+			new Element('select',{id:'choosr',title:'The first uppercase character in the option is the ctrl shortcut'})
 			.adopt([
 				new Element('option',{value:'0',text:' Commands'}),
 			])
@@ -34,18 +34,22 @@ ShellScript.implement({
 		});
 		
 		if(this.button && this.button.accessKey)
-			e.set('text', e.get('text').replace(RegExp(this.button.accessKey), ''+this.button.accessKey.toUpperCase()+'') );
+			e.set('text', '⌃'+ this.button.accessKey.toUpperCase() +'    '+ e.get('text').capitalize() );
 		
 		$('choosr').adopt([
 			e
 		]).retrieve('script')[command]=this;
 		return this;
 	},
+	key: function(name){
+		return $$('[accesskey="'+ name[0] +'"]').length ? this.key(name[1]) : name[0]
+	},
 	draw: function(name){
 		this.button = new Element('input',{
 			type:'button', 
 			value: name, 
-			accesskey: $$('[accesskey="'+ name[0] +'"]').length ? name[1] : name[0],
+			accesskey: this.key(name),
+			title: "⌃"+this.key(name)
 		});
 		
 		this.button.store('script',this);
@@ -115,7 +119,7 @@ function GUI_toggle(name, ele, mode) {
 	button = new Element('input',{
 		type:'button', 
 		value: name, 
-		accesskey: name[0],
+		accesskey: ShellScript.key(name),
 	}).inject('toolbar');
 	
 	if(mode==  'class'){

@@ -19,12 +19,12 @@ module GitGUI
     end
     
     def diff
-      print "Opening Diff to TextMate…"
+      message "Opening Diff to TextMate…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git diff|mate &>/dev/null &`
     end
     
     def log
-      puts "Log"
+      message "Log", "\n"
       @log = `cd "#{TM_PROJECT_DIRECTORY}"; git log`
       @log.gsub!(/\[#(\d+).*\]/){|r|
         %{<a href="http://#{ ENV['TM_LH_ACCOUNT'] }.lighthouseapp.com/projects/#{ ENV['TM_LH_PROJECT_ID'] }/tickets/#{$1}">#{r}</a>}
@@ -46,21 +46,21 @@ module GitGUI
     end
     
     def commit
-      puts "Committing…"
+      message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v`
     end
     
     def commit_all!
-      puts "Committing…"
+      message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -va`
     end
     
-    def message(txt,donetxt=' Done')
+    def message(txt,donetxt=" Done\n")
       print txt
       $stdout.flush
-      print " Done"
+      print donetxt
     end
     
     def push!
