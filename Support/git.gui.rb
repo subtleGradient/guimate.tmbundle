@@ -57,13 +57,19 @@ module GitGUI
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -va`
     end
     
+    def message(txt,donetxt=' Done')
+      print txt
+      $stdout.flush
+      print " Done"
+    end
+    
     def push!
-      print "Done Pushing to Origin."
+      message "Pushing to Origin…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin`
     end
     
     def stage!
-      print "Done Pushing to Stage."
+      message "Pushing to Stage…"
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage`
     end
     
