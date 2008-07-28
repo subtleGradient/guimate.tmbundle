@@ -12,7 +12,7 @@
 	<key>keyEquivalent</key>
 	<string></string>
 	<key>name</key>
-	<string>Git GUI Project</string>
+	<string>Show Git GUI</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>uuid</key>
