@@ -15,7 +15,7 @@ window.addEvent('domready',function(){
 		
 		GUI('addall!').hide();
 		GUI('commit');
-		GUI('commit_all!').hide();
+		GUI('commit_all!');
 		
 		GUI('push!');
 		GUI('stage!').hide();
