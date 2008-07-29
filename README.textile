@@ -24,3 +24,6 @@ h3. Rails GUI
 * server start/stop
 ** View the site
 
+<hr />
+
+TODO: Focus the gui after a command completes? EG: When you save and close the commit message and the commit completes. Focus the Git GUI so that you can then push or close the window from the keyboard.
