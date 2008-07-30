@@ -25,7 +25,7 @@ module GitGUI
     
     def log
       message "Log", "\n"
-      @log = `cd "#{TM_PROJECT_DIRECTORY}"; git log`
+      @log = `cd "#{TM_PROJECT_DIRECTORY}"; git log -100`
       @log.gsub!(/\[#(\d+).*\]/){|r|
         %{<a href="http://#{ ENV['TM_LH_ACCOUNT'] }.lighthouseapp.com/projects/#{ ENV['TM_LH_PROJECT_ID'] }/tickets/#{$1}">#{r}</a>}
       }
