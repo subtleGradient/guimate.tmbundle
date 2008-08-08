@@ -101,9 +101,6 @@ body {
 }
 
 #context {
-	border-top: 1px solid #CCC;
-	background: #fff;
-	border-bottom: 1px solid #0em;
 	position: fixed;
 	bottom: 0px;
 	right: 0px;
@@ -143,7 +140,7 @@ h2 {
 	line-height: 2em;
 /*	padding: 0 1em;*/
 	margin: 0;
-	color: #fff;
+	color: #eee;
 	text-shadow: 1px 2px 1px #222;
 	text-align: center;
 }

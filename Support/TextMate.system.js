@@ -55,8 +55,11 @@ var ShellScript = new Class({
 		return this;
 	},
 	
-	endHandler   : function(output){TextMate.isBusy = false;
-	                                if (output) this.logElement.innerHTML+= output;},
+	endHandler   : function(output){
+		TextMate.isBusy = false;
+		if (output) this.logElement.innerHTML+= output;
+		window.focus();
+	},
 	onreadoutput : function(output){if (output) this.logElement.innerHTML+= output;},
 	onreaderror  : function(output){if (output) this.errElement.innerHTML+= output;},
 	
