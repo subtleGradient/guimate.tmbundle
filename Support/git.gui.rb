@@ -57,20 +57,19 @@ module GitGUI
       puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -va`
     end
     
-    def message(txt,donetxt=" Done\n")
-      print txt
-      $stdout.flush
-      print donetxt
-    end
-    
     def push!
-      message "Pushing to Origin…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin`
+      message "Pushing #{branch?} to Origin…"
+      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin #{branch?}`
     end
     
     def stage!
-      message "Pushing to Stage…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage`
+      message "Pushing #{branch?} to Stage…"
+      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage #{branch?}`
+    end
+    
+    def pull!
+      message "Pulling #{branch?} from Origin…"
+      puts `cd "#{TM_PROJECT_DIRECTORY}"; git pull origin #{branch?}`
     end
     
     def default
@@ -78,6 +77,17 @@ module GitGUI
     end
     
     private
+    def branch?
+      @ref ||= File.read(TM_PROJECT_DIRECTORY + '/.git/HEAD').chomp.match(/ref: (.*)/)[1]
+      @ref.split('/').last
+    end
+    
+    def message(txt,donetxt=" Done\n")
+      print txt
+      $stdout.flush
+      print donetxt
+    end
+    
     def hash_to_hex_colors(hash)
       hash.scan(/[0-9a-fA-F]{6}/).map { |c| "##{c}" }
     end
