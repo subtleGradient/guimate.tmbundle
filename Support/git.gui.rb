@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
-TM_PROJECT_DIRECTORY = ENV['TM_PROJECT_DIRECTORY']
+PROJECT_PATH = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY']
 
 module GitGUI
   class << self
@@ -20,12 +20,12 @@ module GitGUI
     
     def diff
       message "Opening Diff to TextMate…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git diff|mate &>/dev/null &`
+      puts `cd "#{PROJECT_PATH}"; git diff|mate &>/dev/null &`
     end
     
     def log
       message "Log", "\n"
-      @log = `cd "#{TM_PROJECT_DIRECTORY}"; git log -100`
+      @log = `cd "#{PROJECT_PATH}"; git log -100`
       @log.gsub!(/\[#(\d+).*\]/){|r|
         %{<a href="http://#{ ENV['TM_LH_ACCOUNT'] }.lighthouseapp.com/projects/#{ ENV['TM_LH_PROJECT_ID'] }/tickets/#{$1}">#{r}</a>}
       }
@@ -34,42 +34,42 @@ module GitGUI
     
     def status
       puts "Status"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git status`
+      puts `cd "#{PROJECT_PATH}"; git status`
     end
     
     def nub
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; nub . &>/dev/null &`
+      puts `cd "#{PROJECT_PATH}"; nub . &>/dev/null &`
     end
     
     def addall!
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git add *; git st`
+      puts `cd "#{PROJECT_PATH}"; git add *; git st`
     end
     
     def commit
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -v`
+      puts `cd "#{PROJECT_PATH}"; git commit -v`
     end
     
     def commit_all!
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git commit -va`
+      puts `cd "#{PROJECT_PATH}"; git commit -va`
     end
     
     def push!
       message "Pushing #{branch?} to Origin…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push origin #{branch?}`
+      puts `cd "#{PROJECT_PATH}"; git push origin #{branch?}`
     end
     
     def stage!
       message "Pushing #{branch?} to Stage…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git push stage #{branch?}`
+      puts `cd "#{PROJECT_PATH}"; git push stage #{branch?}`
     end
     
     def pull!
       message "Pulling #{branch?} from Origin…"
-      puts `cd "#{TM_PROJECT_DIRECTORY}"; git pull origin #{branch?}`
+      puts `cd "#{PROJECT_PATH}"; git pull origin #{branch?}`
     end
     
     def default
@@ -78,7 +78,7 @@ module GitGUI
     
     private
     def branch?
-      @ref ||= File.read(TM_PROJECT_DIRECTORY + '/.git/HEAD').chomp.match(/ref: (.*)/)[1]
+      @ref ||= File.read(PROJECT_PATH + '/.git/HEAD').chomp.match(/ref: (.*)/)[1]
       @ref.split('/').last
     end
     
@@ -106,6 +106,6 @@ module GitGUI
 end
 
 if __FILE__ == $0
-  abort %Q{This only works with projects, not individual files :(} unless TM_PROJECT_DIRECTORY
+  abort %Q{This only works with projects, not individual files :(} unless PROJECT_PATH
   GitGUI::send ARGV[0]
 end
