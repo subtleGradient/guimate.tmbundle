@@ -10,6 +10,32 @@ ShellScript.implement({
 		return this;
 	},
 	
+	onreadoutput : function(output){
+		if (!output) return;
+		var outputs = output.split('/**/');
+		
+		outputs.each(function(o){
+			if (!o) return;
+			console.log(o);
+				
+			try{
+				var json = JSON.decode(o);
+				if (json.message) {
+					GUI_context.MESSAGE(json.message);
+					return delete json.message;
+				}
+				
+				return this.logElement.innerHTML += pp( json );
+				
+			}catch(e){
+				console.log(e)
+				this.logElement.innerHTML += o;
+			};
+			
+		}.bind(this));
+		
+	},
+	
 	draw_menu: function(command){
 		if(!$('choosr')){
 			new Element('select',{id:'choosr',title:'The first uppercase character in the option is the ctrl shortcut'})
@@ -45,7 +71,11 @@ ShellScript.implement({
 		return this;
 	},
 	key: function(name){
-		return $$('[accesskey="'+ name[0] +'"]').length ? this.key(name[1]) : name[0];
+		try{
+			return $$('[accesskey="'+ name[0] +'"]').length ? this.key( name.substring(1) ) : name[0];
+		}catch(e){
+			return false;
+		};
 	},
 	draw: function(name){
 		this.button = new Element('input',{
@@ -141,11 +171,41 @@ function GUI_toggle(name, ele, mode) {
 	return button;
 }
 
-function GUI_context(context){
-	var CONTEXT = {
-		PROJECT: function(){
-			$('context').set('html','<h2>'+ShellScriptResult('echo "$TM_PROJECT_DIRECTORY"').replace(/^.*(?=\/.*?\/)/,'…')+'</h2>');
-		}
-	};
-	return CONTEXT[context]();
+var GUI_context = {
+	MESSAGE: function(message){
+		$('context').set('html','<h2>'+ message +'</h2>');
+	}
+};
+
+function pp(object){
+	switch ($type(object)){
+	case 'object':
+		object = $H(object);
+		
+		var h = '<table>';
+		object.each(function(value, key){
+			h += '<tr><th> {key} </th><td> {value} </td></tr>'.substitute({key:key, value: pp(value) })
+		})
+		h += '</table>'
+		return h
+		
+		break;
+	case 'array':
+		object = $A(object);
+		
+		var h = '';
+		object.each(function(value, key){
+			h += '<div> {value} </div>'.substitute({value: pp(value) })
+		})
+		return h
+		
+		break;
+	case false: return 'false'; break;
+	case 'string':
+	case 'number':
+	case 'boolean':
+	case 'date':
+	default: return object.toString();
+	}
+	
 };

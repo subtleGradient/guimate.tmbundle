@@ -3,17 +3,18 @@
 
 window.addEvent('domready',function(){
 	try{
-		$GUI$ = 'git'
+		$GUI$ = 'git';
 		// var fred1 = GUI_info('default').run().hide();
 		// cache_info('browse_url');
 		
 		GUI('status');
 		GUI('log').hide();
+		GUI('ls_files').hide();
 		
 		GUI('diff');
 		GUI('nub').hide();
 		
-		GUI('addall!').hide();
+		GUI('add_remove!').hide();
 		GUI('commit');
 		GUI('commit_all!');
 		
@@ -21,9 +22,8 @@ window.addEvent('domready',function(){
 		GUI('stage!').hide();
 		GUI('pull!').hide();
 		
-		GUI('default').hide().run();
 		
-		GUI_context('PROJECT');
+		GUI('default').hide().run();
 		
 	}catch(e){
 		$$('#log .errors')[0].innerHTML+=e.message+'\n';

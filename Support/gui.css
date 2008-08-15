@@ -43,7 +43,7 @@ dl {margin:0 0 1.5em 0;}
 dl dt {font-weight:bold;}
 dd {margin-left:1.5em;}
 table {margin-bottom:1.4em;width:100%;}
-th {font-weight:bold;background:#C3D9FF;}
+th {font-weight:bold;}
 th, td {padding:4px 10px 4px 5px;}
 tr.even td {background:#E5ECF9;}
 tfoot {font-style:italic;}
@@ -178,6 +178,23 @@ pre{font-size:11px;}
 
 #fulllog{display:none;}
 .fulllog #fulllog{display:block !important;}
+
+table{
+	border-collapse: collapse;
+}
+table td,table th{
+	border: 1px solid #000;
+}
+table td{
+	color: #ccc;
+	border: 1px solid #000;
+}
+table th{
+	font-weight: normal;
+	color: #fff;
+	vertical-align: top;
+	text-align: center;
+}
 
 /* @end   GUI */
 
