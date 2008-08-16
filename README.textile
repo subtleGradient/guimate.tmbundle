@@ -9,13 +9,13 @@ h2. INSTALL
 h3. Get...
 
 <pre>
-git clone git://github.com/subtleGradient/persistent-asynchronous-script-runner.git GuiMate.tmbundle
+git clone git://github.com/subtleGradient/guimate.tmbundle.git GuiMate.tmbundle
 open GuiMate.tmbundle
 </pre>
 
 h3. or Download...
 
-"Download persistent-asynchronous-script-runner as a tar":http://github.com/subtleGradient/persistent-asynchronous-script-runner/tarball/master
+"Download GuiMate as a tar":http://github.com/subtleGradient/guimate.tmbundle/tarball/master
 
 Make sure you rename the root folder of this project to GuiMate.tmbundle to make TextMate recognize it as a bundle.
 
