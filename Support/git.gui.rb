@@ -99,7 +99,7 @@ module GitGUI
     def ls_files(types=%w[modified deleted unmerged cached others stage killed])
       @ls_files = {}
       
-      cmd = %`cd "#{PROJECT_PATH}"; git-ls-files --directory`
+      cmd = %`cd "#{PROJECT_PATH}"; git-ls-files --directory --no-empty-directory`
       ignore_filepaths.each do |ignore_filepath|
         cmd << " --exclude-from=#{e_sh ignore_filepath}"
       end
