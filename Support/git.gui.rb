@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'json'
+require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 
 TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
 PROJECT_PATH = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY']
@@ -82,11 +83,35 @@ module GitGUI
       `cd "#{PROJECT_PATH}"; git pull origin #{branch?}`
     end
     
+    def ignore_filepaths
+      return @ignore_filepaths ||= [
+        
+        `git config --global core.excludesfile`.chomp, 
+        PROJECT_PATH + '/.gitignore'
+        
+      ].select do |ignore_filepath|
+        
+        ignore_filepath and File.exists?(ignore_filepath)
+        
+      end
+    end
+    
     def ls_files(types=%w[modified deleted unmerged cached others stage killed])
       @ls_files = {}
+      
+      cmd = %`cd "#{PROJECT_PATH}"; git-ls-files --directory`
+      ignore_filepaths.each do |ignore_filepath|
+        cmd << " --exclude-from=#{e_sh ignore_filepath}"
+      end
+      
       types.each do |kind|
-        result = `cd "#{PROJECT_PATH}"; git-ls-files --directory --#{kind}`.split("\n")
-        @ls_files[kind] = result if result and not result.empty?
+        filepaths = `#{cmd} --#{kind}`
+        next if filepaths.empty?
+        
+        filepaths.gsub!(/^/,PROJECT_PATH+'/')
+        filepaths = filepaths.split("\n")
+        
+        @ls_files[kind] = filepaths 
       end
       @ls_files
     end
