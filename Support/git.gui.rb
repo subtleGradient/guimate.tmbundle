@@ -83,6 +83,27 @@ module GitGUI
       `cd "#{PROJECT_PATH}"; git pull origin #{branch?}`
     end
     
+    def fetch
+      message "Fetching from Origin…"
+      j `cd "#{PROJECT_PATH}"; git fetch origin`
+      message "Diffing from Origin…"
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/#{branch?} > .fetch_origin_#{branch?}.diff;        mate -a .fetch_origin_#{branch?}.diff`
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/master     > .fetch_origin_#{branch?}_master.diff; mate -a .fetch_origin_#{branch?}_master.diff` unless branch? == 'master'
+      
+      message "Fetching from Stage…"
+      j `cd "#{PROJECT_PATH}"; git fetch stage`
+      message "Diffing from Stage…"
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/#{branch?} > .fetch_stage_#{branch?}.diff;        mate -a .fetch_stage_#{branch?}.diff`
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/master     > .fetch_stage_#{branch?}_master.diff; mate -a .fetch_stage_#{branch?}_master.diff` unless branch? == 'master'
+      
+      diffs = []
+      diffs << ".fetch_origin_#{branch?}.diff"
+      diffs << ".fetch_origin_#{branch?}_master.diff" unless branch? == 'master'
+      diffs << ".fetch_stage_#{branch?}.diff"
+      diffs << ".fetch_stage_#{branch?}_master.diff" unless branch? == 'master'
+      diffs
+    end
+    
     def ignore_filepaths
       return @ignore_filepaths ||= [
         
@@ -108,7 +129,8 @@ module GitGUI
         filepaths = `#{cmd} --#{kind}`
         next if filepaths.empty?
         
-        filepaths.gsub!(/^/,PROJECT_PATH+'/')
+        # TODO: Make the paths absolute again once we need it
+        # filepaths.gsub!(/^/,PROJECT_PATH+'/')
         filepaths = filepaths.split("\n")
         
         @ls_files[kind] = filepaths 

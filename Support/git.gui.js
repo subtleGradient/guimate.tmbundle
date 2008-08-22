@@ -22,6 +22,7 @@ window.addEvent('domready',function(){
 		GUI('stage!').hide();
 		GUI('pull!').hide();
 		
+		GUI('fetch').hide();
 		
 		GUI('default').hide().run();
 		
