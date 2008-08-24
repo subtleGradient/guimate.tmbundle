@@ -56,16 +56,24 @@ module GitGUI
       `cd "#{PROJECT_PATH}"; git add .; git st`
     end
     
-    def commit
+    def commit(message=nil)
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
-      `cd "#{PROJECT_PATH}"; git commit -v`
+      cmd = %`cd "#{PROJECT_PATH}"; git commit -v`
+      cmd << " -m #{e_sh message}" if message
+      %x{#{cmd}}
     end
     
     def commit_all!
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
       `cd "#{PROJECT_PATH}"; git commit -va`
+    end
+    
+    # x_fast_commit! is really dumb, you should probly NEVER use it!
+    def x_fast_commit!
+      add_remove!
+      commit 'WIP'
     end
     
     def push!

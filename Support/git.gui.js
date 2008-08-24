@@ -17,6 +17,7 @@ window.addEvent('domready',function(){
 		GUI('add_remove!').hide();
 		GUI('commit');
 		GUI('commit_all!');
+		GUI('x_fast_commit!').hide();
 		
 		GUI('push!');
 		GUI('stage!').hide();
