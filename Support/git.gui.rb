@@ -72,8 +72,9 @@ module GitGUI
     
     # x_fast_commit! is really dumb, you should probly NEVER use it!
     def x_fast_commit!
-      add_remove!
-      commit 'WIP'
+      j add_remove!
+      j commit 'WIP'
+      default
     end
     
     def push!
