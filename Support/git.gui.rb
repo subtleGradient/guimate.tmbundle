@@ -74,7 +74,7 @@ module GitGUI
     def x_fast_commit!
       j add_remove!
       j commit('WIP')
-      j 'WIP Commit Done. You are a terrible, terrible person!!!1! :\'('
+      j "\nWIP Commit Done. You are a terrible, terrible person!!!1! :'("
       default
     end
     
