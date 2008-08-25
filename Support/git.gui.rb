@@ -101,14 +101,14 @@ module GitGUI
       message "Fetching from Origin…"
       j `cd "#{PROJECT_PATH}"; git fetch origin`
       message "Diffing from Origin…"
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/#{branch?} > .fetch_origin_#{branch?}.diff        ;mate -a .fetch_origin_#{branch?}.diff        ;rm .fetch_origin_#{branch?}.diff`
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/master     > .fetch_origin_#{branch?}_master.diff ;mate -a .fetch_origin_#{branch?}_master.diff ;rm .fetch_origin_#{branch?}_master.diff` unless branch? == 'master'
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/#{branch?} > /tmp/.fetch_origin_#{branch?}.diff        ;mate -a /tmp/.fetch_origin_#{branch?}.diff`
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/master     > /tmp/.fetch_origin_#{branch?}_master.diff ;mate -a /tmp/.fetch_origin_#{branch?}_master.diff` unless branch? == 'master'
       
       message "Fetching from Stage…"
       j `cd "#{PROJECT_PATH}"; git fetch stage`
       message "Diffing from Stage…"
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/#{branch?} > .fetch_stage_#{branch?}.diff        ;mate -a .fetch_stage_#{branch?}.diff        ;rm .fetch_stage_#{branch?}.diff`
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/master     > .fetch_stage_#{branch?}_master.diff ;mate -a .fetch_stage_#{branch?}_master.diff ;rm .fetch_stage_#{branch?}_master.diff` unless branch? == 'master'
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/#{branch?} > /tmp/.fetch_stage_#{branch?}.diff        ;mate -a /tmp/.fetch_stage_#{branch?}.diff`
+      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/master     > /tmp/.fetch_stage_#{branch?}_master.diff ;mate -a /tmp/.fetch_stage_#{branch?}_master.diff` unless branch? == 'master'
       
       diffs = []
       diffs << ".fetch_origin_#{branch?}.diff"
