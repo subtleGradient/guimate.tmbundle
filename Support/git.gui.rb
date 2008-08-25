@@ -35,9 +35,11 @@ module GitGUI
     
     def log
       message "Log", "\n"
-      @log = `cd "#{PROJECT_PATH}"; git log -100`
-      @log = link_lighthouse @log
-      replace_hash_with_html(@log)
+      @log = `cd "#{PROJECT_PATH}"; git log -100 --pretty=format:'"Hash":"%H", "Author":"%an %ae", "Date":"%ad %ar", "Note":"%s %b" },'`
+      @log
+      # @log = link_lighthouse @log
+      # replace_hash_with_html
+      JSON.parse('['+@log+'null]')
     end
     
     def status
@@ -72,9 +74,11 @@ module GitGUI
     
     # x_fast_commit! is really dumb, you should probly NEVER use it!
     def x_fast_commit!
+      require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
+      
       j add_remove!
-      j commit('WIP')
-      j "\nWIP Commit Done. You are a terrible, terrible person!!!1! :'("
+      j commit(TextMate::UI.request_string({:title => %Q{Fast Commit?! DON'T DO IT!!1!}, :default => 'WIP', :prompt => 'Commit message:'}))
+      j "\nWIP Commit Done." => "You are a terrible, terrible person!!!1! :'("
       default
     end
     
