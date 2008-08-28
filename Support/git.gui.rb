@@ -4,7 +4,17 @@ require 'json'
 require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 
 TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
-PROJECT_PATH = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY']
+# $PROJECT_PATH = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY']
+
+pwd = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || ENV['PWD']
+
+while !$PROJECT_PATH and pwd != '/'
+  pwd = File.expand_path(pwd)
+  $PROJECT_PATH = pwd and next if File.exists?(pwd+'/.git')
+  
+  pwd += '/..'
+end
+# abort [pwd, $PROJECT_PATH].inspect
 
 def j(result, wait=false)
   STDOUT.flush
@@ -30,12 +40,12 @@ module GitGUI
     
     def diff
       message "Opening Diff to TextMate…"
-      `cd "#{PROJECT_PATH}"; git diff|mate &>/dev/null &`
+      `cd "#{$PROJECT_PATH}"; git diff|mate &>/dev/null &`
     end
     
     def log
       message "Log", "\n"
-      @log = `cd "#{PROJECT_PATH}"; git log -100 --pretty=format:'"Hash":"%H", "Author":"%an %ae", "Date":"%ad %ar", "Note":"%s %b" },'`
+      @log = `cd "#{$PROJECT_PATH}"; git log -100 --pretty=format:'"Hash":"%H", "Author":"%an %ae", "Date":"%ad %ar", "Note":"%s %b" },'`
       @log
       # @log = link_lighthouse @log
       # replace_hash_with_html
@@ -45,23 +55,23 @@ module GitGUI
     def status
       message 'Status'
       j ls_files(%w[modified deleted unmerged others killed])
-      `cd "#{PROJECT_PATH}"; git status`
+      `cd "#{$PROJECT_PATH}"; git status`
     end
     
     def nub
-      `cd "#{PROJECT_PATH}"; nub . &>/dev/null &`
+      `cd "#{$PROJECT_PATH}"; nub . &>/dev/null &`
     end
     
     def add_remove!
       j ls_files(%w[modified deleted unmerged others])
-      j `cd "#{PROJECT_PATH}"; git ls-files --deleted|xargs git rm`
-      `cd "#{PROJECT_PATH}"; git add .; git st`
+      j `cd "#{$PROJECT_PATH}"; git ls-files --deleted|xargs git rm`
+      `cd "#{$PROJECT_PATH}"; git add .; git st`
     end
     
     def commit(message=nil)
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
-      cmd = %`cd "#{PROJECT_PATH}"; git commit -v`
+      cmd = %`cd "#{$PROJECT_PATH}"; git commit -v`
       cmd << " -m #{e_sh message}" if message
       %x{#{cmd}}
     end
@@ -69,7 +79,7 @@ module GitGUI
     def commit_all!
       message "Committing…"
       ENV['GIT_EDITOR'] ||= 'mate -w'
-      `cd "#{PROJECT_PATH}"; git commit -va`
+      `cd "#{$PROJECT_PATH}"; git commit -va`
     end
     
     # x_fast_commit! is really dumb, you should probly NEVER use it!
@@ -84,31 +94,31 @@ module GitGUI
     
     def push!
       message "Pushing #{branch?} to Origin…"
-      `cd "#{PROJECT_PATH}"; git push origin #{branch?}`
+      `cd "#{$PROJECT_PATH}"; git push origin #{branch?}`
     end
     
     def stage!
       message "Pushing #{branch?} to Stage…"
-      `cd "#{PROJECT_PATH}"; git push stage #{branch?}`
+      `cd "#{$PROJECT_PATH}"; git push stage #{branch?}`
     end
     
     def pull!
       message "Pulling #{branch?} from Origin…"
-      `cd "#{PROJECT_PATH}"; git pull origin #{branch?}`
+      `cd "#{$PROJECT_PATH}"; git pull origin #{branch?}`
     end
     
     def fetch
       message "Fetching from Origin…"
-      j `cd "#{PROJECT_PATH}"; git fetch origin`
+      j `cd "#{$PROJECT_PATH}"; git fetch origin`
       message "Diffing from Origin…"
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/#{branch?} > /tmp/.fetch_origin_#{branch?}.diff        ;mate -a /tmp/.fetch_origin_#{branch?}.diff`
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..origin/master     > /tmp/.fetch_origin_#{branch?}_master.diff ;mate -a /tmp/.fetch_origin_#{branch?}_master.diff` unless branch? == 'master'
+      `cd "#{$PROJECT_PATH}"; git log -p #{branch?}..origin/#{branch?} > /tmp/.fetch_origin_#{branch?}.diff        ;mate -a /tmp/.fetch_origin_#{branch?}.diff`
+      `cd "#{$PROJECT_PATH}"; git log -p #{branch?}..origin/master     > /tmp/.fetch_origin_#{branch?}_master.diff ;mate -a /tmp/.fetch_origin_#{branch?}_master.diff` unless branch? == 'master'
       
       message "Fetching from Stage…"
-      j `cd "#{PROJECT_PATH}"; git fetch stage`
+      j `cd "#{$PROJECT_PATH}"; git fetch stage`
       message "Diffing from Stage…"
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/#{branch?} > /tmp/.fetch_stage_#{branch?}.diff        ;mate -a /tmp/.fetch_stage_#{branch?}.diff`
-      `cd "#{PROJECT_PATH}"; git log -p #{branch?}..stage/master     > /tmp/.fetch_stage_#{branch?}_master.diff ;mate -a /tmp/.fetch_stage_#{branch?}_master.diff` unless branch? == 'master'
+      `cd "#{$PROJECT_PATH}"; git log -p #{branch?}..stage/#{branch?} > /tmp/.fetch_stage_#{branch?}.diff        ;mate -a /tmp/.fetch_stage_#{branch?}.diff`
+      `cd "#{$PROJECT_PATH}"; git log -p #{branch?}..stage/master     > /tmp/.fetch_stage_#{branch?}_master.diff ;mate -a /tmp/.fetch_stage_#{branch?}_master.diff` unless branch? == 'master'
       
       diffs = []
       diffs << ".fetch_origin_#{branch?}.diff"
@@ -122,7 +132,7 @@ module GitGUI
       return @ignore_filepaths ||= [
         
         `git config --global core.excludesfile`.chomp, 
-        PROJECT_PATH + '/.gitignore'
+        $PROJECT_PATH + '/.gitignore'
         
       ].select do |ignore_filepath|
         
@@ -134,7 +144,7 @@ module GitGUI
     def ls_files(types=%w[modified deleted unmerged cached others stage killed])
       @ls_files = {}
       
-      cmd = %`cd "#{PROJECT_PATH}"; git-ls-files --directory --no-empty-directory`
+      cmd = %`cd "#{$PROJECT_PATH}"; git-ls-files --directory --no-empty-directory`
       ignore_filepaths.each do |ignore_filepath|
         cmd << " --exclude-from=#{e_sh ignore_filepath}"
       end
@@ -144,7 +154,7 @@ module GitGUI
         next if filepaths.empty?
         
         # TODO: Make the paths absolute again once we need it
-        # filepaths.gsub!(/^/,PROJECT_PATH+'/')
+        # filepaths.gsub!(/^/,$PROJECT_PATH+'/')
         filepaths = filepaths.split("\n")
         
         @ls_files[kind] = filepaths 
@@ -159,12 +169,12 @@ module GitGUI
     
     def message(txt, donetxt=' Done')
       j({'message' => txt})
-      j({'message' => PROJECT_PATH}, true)
+      j({'message' => $PROJECT_PATH}, true)
     end
     
     private
     def branch?
-      @ref ||= File.read(PROJECT_PATH + '/.git/HEAD').chomp.match(/ref: (.*)/)[1]
+      @ref ||= File.read($PROJECT_PATH + '/.git/HEAD').chomp.match(/ref: (.*)/)[1]
       @ref.split('/').last
     end
     
@@ -192,6 +202,6 @@ module GitGUI
 end
 
 if __FILE__ == $0
-  abort %Q{This only works with projects, not individual files :(} unless PROJECT_PATH
+  abort %Q{This only works with projects, not individual files :(} unless $PROJECT_PATH
   j GitGUI::send(ARGV[0])
 end
