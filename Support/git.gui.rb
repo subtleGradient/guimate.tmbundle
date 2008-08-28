@@ -6,15 +6,13 @@ require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 TM_BUNDLE_SUPPORT    = ENV['TM_BUNDLE_SUPPORT']    || File.expand_path('~/Library/Application Support/TextMate/Bundles/GuiMate.tmbundle/Support')
 # $PROJECT_PATH = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY']
 
-pwd = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || ENV['PWD']
+pwd = ENV['GIT_PROJECT_DIRECTORY'] || ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || ENV['PWD'] || File.dirname($0)
 
-while !$PROJECT_PATH and pwd != '/'
-  pwd = File.expand_path(pwd)
+until $PROJECT_PATH or pwd == '/'
+  pwd.gsub(/\/$/,'')
   $PROJECT_PATH = pwd and next if File.exists?(pwd+'/.git')
-  
-  pwd += '/..'
+  pwd = File.expand_path(pwd + '/..')
 end
-# abort [pwd, $PROJECT_PATH].inspect
 
 def j(result, wait=false)
   STDOUT.flush
@@ -202,6 +200,6 @@ module GitGUI
 end
 
 if __FILE__ == $0
-  abort %Q{This only works with projects, not individual files :(} unless $PROJECT_PATH
+  abort %Q{Not a git project :'(} unless $PROJECT_PATH
   j GitGUI::send(ARGV[0])
 end
