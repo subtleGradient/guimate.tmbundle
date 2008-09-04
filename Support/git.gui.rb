@@ -105,6 +105,11 @@ module GitGUI
       `cd "#{$PROJECT_PATH}"; git pull origin #{branch?}`
     end
     
+    def pull_stage!
+      message "Pulling #{branch?} from Stage…"
+      `cd "#{$PROJECT_PATH}"; git pull stage #{branch?}`
+    end
+    
     def fetch
       message "Fetching from Origin…"
       j `cd "#{$PROJECT_PATH}"; git fetch origin`
