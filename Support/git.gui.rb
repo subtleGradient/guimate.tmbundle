@@ -43,11 +43,19 @@ module GitGUI
     
     def log
       message "Log", "\n"
-      @log = `cd "#{$PROJECT_PATH}"; git log -100 --pretty=format:'"Hash":"%H", "Author":"%an %ae", "Date":"%ad %ar", "Note":"%s %b" },'`
-      @log
+      @log = `cd "#{$PROJECT_PATH}"; git log -10 --pretty=format:'Hash‹%H› Author‹%an %ae› Date‹%ad %ar› Note‹%s %b›'`
       # @log = link_lighthouse @log
       # replace_hash_with_html
-      JSON.parse('['+@log+'null]')
+      
+      @log.split("\n").map do |log|
+        log = log.split(/› ?/)
+        hsh = {}
+        log.each do|kv|
+          k,v = kv.split('‹')
+          hsh[k] = v
+        end
+        hsh
+      end
     end
     
     def status
