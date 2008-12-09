@@ -27,6 +27,7 @@ window.addEvent('domready',function(){
 		GUI('fetch').hide();
 		
 		GUI('default').hide().run();
+		GUI('status_raw').hide();
 		
 	}catch(e){
 		$$('#log .errors')[0].innerHTML+=e.message+'\n';

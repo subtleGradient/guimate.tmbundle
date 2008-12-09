@@ -21,6 +21,15 @@ def j(result, wait=false)
   STDOUT.flush unless wait
 end
 
+class String
+  def paths_to_tm_links
+    %{<a href="txmt://open?url=file://#$PROJECT_PATH/#{self}">#{self}</a>}
+  end
+  def paths_to_tm_links!
+    self.replace self.paths_to_tm_links
+  end
+end
+
 module GitGUI
   class << self
     
@@ -47,6 +56,7 @@ module GitGUI
       # @log = link_lighthouse @log
       # replace_hash_with_html
       
+      
       @log.split("\n").map do |log|
         log = log.split(/› ?/)
         hsh = {}
@@ -60,7 +70,11 @@ module GitGUI
     
     def status
       message 'Status'
-      j ls_files(%w[modified deleted unmerged others killed])
+      ls_files(%w[modified deleted unmerged others killed])
+    end
+    
+    def status_raw
+      message 'Status'
       `cd "#{$PROJECT_PATH}"; git status`
     end
     
@@ -167,6 +181,8 @@ module GitGUI
         # TODO: Make the paths absolute again once we need it
         # filepaths.gsub!(/^/,$PROJECT_PATH+'/')
         filepaths = filepaths.split("\n")
+        
+        filepaths.map { |p| p.paths_to_tm_links! }
         
         @ls_files[kind] = filepaths 
       end
